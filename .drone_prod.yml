@@ -87,11 +87,12 @@ steps:
     repo: 624792314775.dkr.ecr.us-east-1.amazonaws.com/drone-test/service2
     container: service2
     tag: "${DRONE_COMMIT_SHA:0:8}"
-  when:
-    branch:
-    - main
-    event:
-      - push
+    when:
+      event:
+      - promote
+      target:
+      - production
+      
 trigger:
   branch:
   - main
