@@ -5,6 +5,6 @@ ENV PORT ${PORT:-80}
 
 RUN apt-get -y update && apt -y install dnsutils netcat
 
-COPY  . .
+COPY  service1/. .
 EXPOSE ${PORT}
 CMD ["bash", "entrypoint.sh"]
