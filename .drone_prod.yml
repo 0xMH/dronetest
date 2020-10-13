@@ -1,0 +1,90 @@
+---
+kind: pipeline
+type: kubernetes
+name: service1-deploy
+
+steps:
+- name: publishToEcr
+  image: plugins/ecr
+  settings:
+    dockerfile: service1/Dockerfile
+    access_key:
+      from_secret: aws_access_key_id
+    secret_key:
+      from_secret: aws_secret_access_key
+    repo: drone-test/service1
+    registry: 624792314775.dkr.ecr.us-east-1.amazonaws.com
+    region: us-east-1
+    tags:
+      - ${DRONE_COMMIT_SHA:0:8}
+      - ${DRONE_BRANCH}
+  when:
+    branch:
+    - master
+    event:
+      - push
+
+- name: deployT0K8s
+  image: quay.io/honestbee/drone-kubernetes
+  settings:
+    KUBERNETES_SERVER:
+     from_secret: kubernetes_server
+    KUBERNETES_TOKEN:
+      from_secret: kubernetes_token
+    KUBERNETES_CERT:
+      from_secret: kubernetes_cert
+    namespace: dronetest
+    deployment: service1
+    repo: 624792314775.dkr.ecr.us-east-1.amazonaws.com/drone-test/service1
+    container: service1
+    tag: "${DRONE_COMMIT_SHA:0:8}"
+  when:
+    branch:
+    - master
+    event:
+      - push
+---
+kind: pipeline
+type: kubernetes
+name: service2-deploy
+
+steps:
+- name: publishToEcr
+  image: plugins/ecr
+  settings:
+    dockerfile: service2/Dockerfile
+    access_key:
+      from_secret: aws_access_key_id
+    secret_key:
+      from_secret: aws_secret_access_key
+    repo: drone-test/service2
+    registry: 624792314775.dkr.ecr.us-east-1.amazonaws.com
+    region: us-east-1
+    tags:
+      - ${DRONE_COMMIT_SHA:0:8}
+      - ${DRONE_BRANCH}
+  when:
+    branch:
+    - master
+    event:
+      - push
+
+- name: deployT0K8s
+  image: quay.io/honestbee/drone-kubernetes
+  settings:
+    KUBERNETES_SERVER:
+     from_secret: kubernetes_server
+    KUBERNETES_TOKEN:
+      from_secret: kubernetes_token
+    KUBERNETES_CERT:
+      from_secret: kubernetes_cert
+    namespace: dronetest
+    deployment: service2
+    repo: 624792314775.dkr.ecr.us-east-1.amazonaws.com/drone-test/service2
+    container: service2
+    tag: "${DRONE_COMMIT_SHA:0:8}"
+  when:
+    branch:
+    - master
+    event:
+      - push
