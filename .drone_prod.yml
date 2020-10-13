@@ -67,11 +67,11 @@ steps:
     tags:
       - ${DRONE_COMMIT_SHA:0:8}
       - ${DRONE_BRANCH}
-  when:
-    branch:
-    - main
-    event:
-      - push
+    when:
+      event:
+      - promote
+      target:
+      - production
 
 - name: deployT0K8s
   image: quay.io/honestbee/drone-kubernetes
