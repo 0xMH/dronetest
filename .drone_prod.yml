@@ -20,7 +20,7 @@ steps:
       - ${DRONE_BRANCH}
   when:
     branch:
-    - master
+    - main
     event:
       - push
 
@@ -40,7 +40,7 @@ steps:
     tag: "${DRONE_COMMIT_SHA:0:8}"
   when:
     branch:
-    - master
+    - main
     event:
       - push
 ---
@@ -65,7 +65,7 @@ steps:
       - ${DRONE_BRANCH}
   when:
     branch:
-    - master
+    - main
     event:
       - push
 
@@ -85,6 +85,6 @@ steps:
     tag: "${DRONE_COMMIT_SHA:0:8}"
   when:
     branch:
-    - master
+    - main
     event:
       - push
