@@ -3,6 +3,7 @@ kind: pipeline
 type: kubernetes
 name: service1-deploy
 
+
 steps:
 - name: publishToEcr
   image: plugins/ecr
