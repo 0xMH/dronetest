@@ -8,6 +8,7 @@ steps:
   image: plugins/ecr
   settings:
     dockerfile: service1/Dockerfile
+    mirror: http://34.229.17.151:7000
     access_key:
       from_secret: aws_access_key_id
     secret_key:
@@ -57,6 +58,7 @@ steps:
   image: plugins/ecr
   settings:
     dockerfile: service2/Dockerfile
+    mirror: http://34.229.17.151:7000
     access_key:
       from_secret: aws_access_key_id
     secret_key:
