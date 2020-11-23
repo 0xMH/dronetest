@@ -1,7 +1,7 @@
 local Pipeline(ServiceName) = {
   kind: 'pipeline',
   type: 'kubernetes',
-  name: ServiceName + '-deploy',
+  name: ServiceName + '-deployjs',
   steps: [
     {
       name: 'publishToEcr',
