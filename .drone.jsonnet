@@ -50,6 +50,11 @@ local Pipeline(ServiceName) = {
       when: {
         event: ['push'],
         branch: ['main'],
+        changeset: {
+          includes: [
+            ServiceName + '/**.js',
+          ],
+        },
       },
     },
   ],
